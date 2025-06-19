@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  solace-broker:
+    image: solace/solace-pubsub-standard:latest
+    container_name: solace
+    ports:
+      - "8080:8080"       # Web UI
+      - "55555:55555"     # Solace messaging (SMF)
+    environment:
+      - username_admin_globalaccesslevel=admin
+      - username_admin_password=admin
+    volumes:
+      - solace_data:/var/lib/solace
+    shm_size: 1g            # ✅ Tambahkan ini
+    restart: unless-stopped
+
+volumes:
+  solace_data:
